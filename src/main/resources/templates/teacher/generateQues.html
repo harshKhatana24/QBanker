@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question Bank Management</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        :root {
+            --primary-color: #151d43;  /* Dark Blue */
+            --secondary-color: #7068e1; /* Indigo */
+            --accent-color: #22D3EE;  /* Cyan */
+
+            --text-color: #374151; /* Dark Gray */
+        }
+
+        .question-card {
+            background: white;
+            border-left: 6px solid var(--secondary-color);
+            transition: transform 0.3s ease-in-out;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .question-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .pagination a {
+            transition: all 0.3s ease-in-out;
+        }
+
+        .pagination a:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 min-h-screen flex flex-col items-center w-full py-10 ">
+
+
+<form th:object="${requiredList}" th:action="@{'/teacher/QB/generate/' + ${question_bank_id}}" method="post" novalidate>
+    <div class="max-w-8xl w-full px-8 py-10 bg-white shadow-xl rounded-xl">
+
+        <!-- Header Section -->
+        <div class="text-center mb-8">
+            <div class="bg-gradient-to-r from-[var(--primary-color)] to-[var(--secondary-color)] text-white py-6 rounded-xl mb-6">
+                <h1 class="text-3xl font-bold" th:text="${questionBank.name}">Question Bank Name</h1>
+                <p class="text-lg mt-2 opacity-90" th:text="${questionBank.teacherName}">Teacher Name</p>
+<!--                <p class="text-sm mt-1 opacity-80" th:text="'ID: ' + ${question_bank_id}">Question Bank ID</p>-->
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex justify-center gap-4">
+                <a th:href="@{'/teacher/QB/view/' + ${questionBankId}}"
+                   class="px-6 py-2.5 text-gray-700 bg-gray-100 rounded-lg shadow-md hover:bg-gray-200 transition">
+                    ⬅ Go Back
+                </a>
+
+                <button type="submit"
+                        class="px-6 py-2.5 bg-[var(--secondary-color)] text-white rounded-lg shadow-md hover:bg-[var(--primary-color)] transition">
+                    ⚡ Generate
+                </button>
+
+                <label class="flex items-center bg-gray-100 text-gray-700 px-6 py-2.5 rounded-lg shadow-md hover:bg-gray-200 transition">
+                    <span class="mr-2 font-semibold">No. of sets:</span>
+                    <input th:field="*{noOfSets}" min="1" type="number"
+                           class="w-16 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]">
+                </label>
+
+
+            </div>
+        </div>
+
+
+        <!-- Question List -->
+        <div class="space-y-6">
+            <div th:each="ques : ${questionsList}" class="question-card p-5 rounded-xl">
+                <input type="checkbox" th:value="${ques.questionId}" th:field="*{listOfQuestion}" class="mr-2">
+                <div>
+                    <h2 class="text-lg font-semibold text-[var(--primary-color)]" th:text="${ques.questionText}">Question Text</h2>
+                    <p class="text-sm text-gray-600" th:text="'Topic: ' + ${ques.topic}">Topic</p>
+                    <p class="text-sm text-gray-600" th:text="'Marks: ' + ${ques.marks}">Marks</p>
+                </div>
+            </div>
+
+            <!-- No Questions Found -->
+            <div th:if="${#lists.isEmpty(questionsList)}" class="text-center py-12">
+                <h2 class="text-2xl text-gray-600 font-medium">No Questions Found</h2>
+                <p class="text-gray-500 mt-2">Start by adding your first question</p>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div th:if="${!questionPage.isEmpty()}" class="mt-8">
+            <nav class="flex justify-center">
+                <ul class="pagination inline-flex shadow-sm">
+                    <li th:if="${!questionPage.first}">
+                        <a th:href="@{'/teacher/QB/view/' + ${question_bank_id} + '?page=' + ${questionPage.number - 1} + '&size=' + ${questionPage.size}}"
+                           class="px-4 py-2 border rounded-l-lg bg-gray-100 hover:bg-gray-200">
+                            ⬅ Previous
+                        </a>
+                    </li>
+
+                    <li th:each="i : ${#numbers.sequence(0, questionPage.totalPages - 1)}">
+                        <a th:href="@{'/teacher/QB/view/' + ${question_bank_id} + '?page=' + ${i} + '&size=' + ${questionPage.size}}"
+                           th:classappend="${i == questionPage.number} ? 'bg-[var(--secondary-color)] text-white' : 'bg-gray-100'"
+                           class="px-4 py-2 border hover:bg-gray-200">
+                            <span th:text="${i + 1}"></span>
+                        </a>
+                    </li>
+
+                    <li th:if="${!questionPage.last}">
+                        <a th:href="@{'/teacher/QB/view/' + ${question_bank_id} + '?page=' + ${questionPage.number + 1} + '&size=' + ${questionPage.size}}"
+                           class="px-4 py-2 border rounded-r-lg bg-gray-100 hover:bg-gray-200">
+                            Next ➡
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</form>
+
+</body>
+</html>
+

@@ -1,0 +1,248 @@
+/* ===== Google Font Import - Poppins ===== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1a1a2e; /* Dark navy background */
+}
+
+.container {
+    position: relative;
+    max-width: 450px;
+    width: 100%;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin: 0 20px;
+    transition: all 0.3s ease;
+
+}
+
+.container .forms {
+    display: flex;
+    align-items: center;
+    height: auto;
+    min-height: 300px;
+    width: 200%;
+    transition: height 0.4s ease;
+
+}
+
+.container .form {
+    width: 50%;
+    padding: 2rem;
+    background-color: #ffffff;
+    /*border: 3px solid black;*/
+    transition: all 0.3s ease;
+}
+
+.container.active .login {
+    margin-left: -50%;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.container.active .signup {
+    opacity: 1;
+}
+
+.container.active .forms {
+    min-height: 400px;
+}
+.container.active .forms {
+    min-height: auto;
+}
+.login {
+    height: auto !important;
+    max-height: 400px;
+}
+
+.signup {
+    height: auto !important;
+    max-height: 500px;
+}
+
+/* Title Styling */
+.form .title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #2a2a4a;
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.form .title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    height: 3px;
+    width: 40px;
+    background-color: #4a47a3; /* Professional blue accent */
+    border-radius: 25px;
+}
+
+/* Input Fields */
+.input-field {
+    position: relative;
+    margin: 0.5vh;
+    width: 200%;
+    height: 40px;
+    padding: 0 1rem;
+    border: 2px solid #e6e6e6;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #f8f9fa;
+
+}
+
+
+
+
+.input-field:focus {
+    border-color: #4a47a3;
+    box-shadow: 0 3px 15px rgba(74, 71, 163, 0.1);
+    outline: none;
+}
+
+/* Checkbox */
+.checkbox-text {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+.checkbox-content input {
+    margin-right: 0.5rem;
+    accent-color: #4a47a3;
+}
+
+/* Links */
+.form a.text {
+    color: #4a47a3;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.form a:hover {
+    color: #36348a;
+    text-decoration: underline;
+}
+
+/* Buttons */
+.submitBtn {
+    width: 100%;
+    height: 40px;
+    background-color: #4a47a3;
+    color: #ffffff;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 5vh;
+}
+
+.submitBtn:hover {
+    background-color: #36348a;
+    transform: translateY(-2px);
+}
+
+/* Login/Signup Switch */
+.login-signup {
+    margin-top: 1.5rem;
+    text-align: center;
+    color: #666;
+}
+
+.login-signup a {
+    margin-left: 0.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .container {
+        margin: 0 10px;
+        border-radius: 10px;
+    }
+
+    .form {
+        padding: 1.5rem;
+    }
+
+    .form .title {
+        font-size: 1.5rem;
+    }
+
+    .input-field {
+        height: 45px;
+        padding: 0 1rem;
+        width: 200%;
+    }
+
+    .button input {
+        height: 45px;
+    }
+}
+
+@media (max-width: 360px) {
+    .checkbox-text {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .form a.text {
+        margin-top: 0.5rem;
+    }
+}
+
+/* Form Switch Animation */
+.container.active .login {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.container .signup {
+    opacity: 0;
+    transform: translateX(20px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.container.active .signup {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Password Toggle Icon */
+.password-toggle {
+    position: absolute;
+    right: 130px;
+    top: 51%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #666;
+    border:none;
+    background: #fff;
+}
+
+/* Error Messages */
+.text-red-600 {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+

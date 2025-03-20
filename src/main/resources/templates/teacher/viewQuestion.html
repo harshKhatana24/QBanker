@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question Details</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen p-6 flex items-center justify-center">
+<div class="w-full max-w-2xl bg-white rounded-xl shadow-lg overflow-hidden">
+    <!-- Header -->
+    <div class="bg-gray-800 text-white px-6 py-4">
+        <h2 class="text-2xl font-bold">Question Details</h2>
+        <div class="flex items-center justify-between mt-2">
+                <span class="text-sm bg-blue-100 text-blue-800 px-3 py-1 rounded-full"
+                      th:text="${question.MCQ} ? 'MCQ' : 'Descriptive'"></span>
+            <span class="text-sm">Marks: <span th:text="${question.marks}" class="font-semibold"></span></span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="p-6 space-y-6">
+        <!-- Question Text -->
+        <div class="space-y-2">
+            <h3 class="text-sm font-semibold text-gray-500 uppercase">Question Text</h3>
+            <p class="text-gray-700 leading-relaxed" th:text="${question.questionText}"></p>
+        </div>
+
+        <!-- Topic -->
+        <div class="space-y-2">
+            <h3 class="text-sm font-semibold text-gray-500 uppercase">Topic</h3>
+            <p class="text-gray-700" th:text="${question.topic}"></p>
+        </div>
+
+        <!-- MCQ Options -->
+<!--        <div th:if="${question.MCQ}" class="space-y-4">-->
+<!--            <h3 class="text-sm font-semibold text-gray-500 uppercase">Options</h3>-->
+<!--            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">-->
+<!--                <div th:each="option,iter : ${#strings.arraySplit(question.option1 + ',' + question.option2 + ',' + question.option3 + ',' + question.option4, ',')}"-->
+<!--                     class="p-3 rounded-lg border"-->
+<!--                     th:class="${#lists.contains(question.correctMCQAnswer, iter.index == 0 ? 'A' : iter.index == 1 ? 'B' : iter.index == 2 ? 'C' : 'D')}-->
+<!--                                ? 'border-green-200 bg-green-50' : 'border-gray-200'">-->
+<!--                    <div class="flex items-center justify-between">-->
+<!--                            <span class="font-medium text-gray-600">-->
+<!--                                Option {{'ABCD'[iter.index]}}-->
+<!--                            </span>-->
+<!--                        <span th:if="${#lists.contains(question.correctMCQAnswer, iter.index == 0 ? 'A' : iter.index == 1 ? 'B' : iter.index == 2 ? 'C' : 'D')}"-->
+<!--                              class="text-green-500">-->
+<!--                                ✓ Correct-->
+<!--                            </span>-->
+<!--                    </div>-->
+<!--                    <p class="mt-1 text-gray-700" th:text="${option}"></p>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+        <!-- Solution -->
+        <div class="space-y-2">
+            <h3 class="text-sm font-semibold text-gray-500 uppercase">Solution</h3>
+            <div class="p-4 bg-gray-50 rounded-lg">
+                <p class="text-gray-700" th:text="${question.solution}"></p>
+            </div>
+        </div>
+
+<!--        &lt;!&ndash; Image &ndash;&gt;-->
+<!--        <div th:if="${question.questionImg}" class="space-y-2">-->
+<!--            <h3 class="text-sm font-semibold text-gray-500 uppercase">Attached Image</h3>-->
+<!--            <img th:src="@{'/uploads/' + ${question.questionImg}}"-->
+<!--                 class="w-full rounded-lg border border-gray-200">-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Actions &ndash;&gt;-->
+<!--        <div class="pt-6 flex justify-end space-x-4">-->
+<!--            <a th:href="@{'/teacher/QB/view/' + ${question_bank_id} + '/' + ${question.questionId} + '/update'}"-->
+<!--               class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">-->
+<!--                Edit Question-->
+<!--            </a>-->
+<!--            <a th:href="@{'/teacher/QB/view/' + ${question_bank_id}}"-->
+<!--               class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">-->
+<!--                Back to List-->
+<!--            </a>-->
+<!--        </div>-->
+    </div>
+</div>
+</body>
+</html>
+
+

@@ -1,0 +1,98 @@
+/* A4 Page Size */
+@page {
+    size: A4;
+    margin: 1in; /* Standard 1-inch margin */
+}
+
+/* General Document Styles */
+body {
+    font-family: "Times New Roman", serif; /* Professional font */
+    font-size: 14px; /* Readable font size */
+    line-height: 1.5; /* Proper spacing */
+    text-align: justify;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header (Title of the Exam) */
+.header {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    border-bottom: 2px solid black;
+    padding-bottom: 10px;
+}
+
+/* Instructions Section */
+.instructions {
+    font-style: italic;
+    font-size: 13px;
+    text-align: justify;
+    margin-bottom: 20px;
+    background-color: #f8f8f8; /* Light background for clarity */
+    padding: 10px;
+    border-left: 5px solid #007bff; /* Highlighted instruction section */
+}
+
+/* Answer Space (For writing answers) */
+.answer-space {
+    border-bottom: 1px dashed black; /* Dashed line for answer space */
+    height: 50px; /* Adjustable height */
+    margin-top: 10px;
+}
+
+/* Image Space */
+.image-space {
+    display: block;
+    justify-content: center;
+    align-items: center;
+    /*width: 100%;*/
+    /*max-width: 500px;*/
+    /*height: 250px; !* Ensure container has a fixed height *!*/
+    overflow: hidden;
+    margin: 5px 0;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    page-break-before: auto;
+    object-fit: contain;
+}
+
+
+.image-space img {
+    width: 100% !important;
+    height: 250px !important;
+    object-fit: contain;
+    /* Crops but maintains proportions */
+}
+
+
+/* Question Style */
+.question {
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    break-inside: avoid; /* Ensures question stays together */
+    page-break-inside: avoid;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 30px;
+    border-top: 1px solid black;
+    padding-top: 10px;
+}
+
+/* Print-specific adjustments */
+@media print {
+    .image-space {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+    .question {
+        page-break-before: auto;
+        page-break-after: avoid;
+    }
+}

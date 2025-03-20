@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q-Banker Dashboard</title>
+    <link rel="stylesheet" href="/css/dashboardpage.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+</head>
+<body>
+<section class="nav-section">
+    <nav class="navbar">
+        <div class="nav-container">
+            <!-- Logo -->
+            <img src="/images/iitram_logo_only-removebg-preview.png" class="Logo" alt="IITRAM Logo">
+
+            <div id="menu-time" class="menu-data animate__animated">
+                <!-- Close button -->
+                <a href="javascript:void(0)" onclick="closebar()"><i id="close" class="size fa-solid fa-xmark"></i></a>
+
+                <!-- Navigation Links -->
+<!--                <a href="#" class="homePage">Home</a>-->
+<!--                <a href="/teacher/dashboard" class="dashboardLink">Home</a>-->
+                <a href="/teacher/QB/add" class="mySubjectLink">My Subject</a>
+                <a href="/teacher/about" class="aboutUsLink">About Us</a>
+
+                <!-- Profile Section -->
+                <div class="profilePic" id="profilePic">
+                    <a href="/teacher/profile">
+                        <img src="https://tse4.mm.bing.net/th?id=OIP.Zmki3GIiRk-XKTzRRlxn4QHaER&pid=Api&P=0&h=180" alt="Profile Picture">
+                    </a>
+                    <a href="/teacher/profile" class="settingsLink">Profile</a>
+                </div>
+            </div>
+
+            <!-- Menu Button -->
+            <a id="Menu-bar" href="javascript:void(0)" onclick="menubar()"><i class="size-icon fa-solid fa-bars"></i></a>
+        </div>
+    </nav>
+
+    <h2 data-aos="fade-up">Welcome to Q-Banker, <b id="UserName">User</b></h2>
+    <div class="statistics" id="content" data-aos="fade-up">
+        <div class="stat" data-aos="fade-up">
+            <h3>Total Subjects</h3>
+            <p id="TotalNumberOfSubjects"></p>
+        </div>
+        <div class="stat" data-aos="fade-up">
+            <h3>Total Questions</h3>
+            <p id="TotalNumberOfQuestions"></p>
+        </div>
+        <div class="stat" data-aos="fade-up">
+            <h3>Number of Question Papers Generated</h3>
+            <p id="NumberOfQuestionPapersGenerated"></p>
+        </div>
+    </div>
+
+    <div class="main-section">
+        <div data-aos="fade-up">
+            <h2 class="section-title"data-aos="fade-up">Subjects Overview</h2>
+            <div class="cards">
+
+                <div class="card card1" data-aos="fade-up">
+                    <h3 id="TopOneSubject"  data-aos="fade-up">No Subject Added</h3>
+                    <a data-aos="fade-up">Add New Question</a>
+                    <a data-aos="fade-up">View/Edit Questions</a>
+                    <a data-aos="fade-up">Download PDFs</a>
+                    <div class="subject-info">
+                        <p>
+                            <strong data-aos="fade-up">Total Questions:</strong>
+                            <span id="TopOneSubjectTotalQuestion"data-aos="fade-up">0</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card card2" data-aos="fade-up">
+                    <h3 id="TopTwoSubject"  data-aos="fade-up">No Subject Added</h3>
+                    <a href="#" data-aos="fade-up">Add New Question</a>
+                    <a href="#"data-aos="fade-up">View/Edit Questions</a>
+                    <a href="#"data-aos="fade-up">Download PDFs</a>
+                    <div class="subject-info"data-aos="fade-up">
+                        <p>
+                            <strong data-aos="fade-up">Total Questions:</strong>
+                            <span id="TopTwoSubjectTotalQuestion"data-aos="fade-up">0</span>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="recent-activities" data-aos="fade-up">
+            <h2>Recent Activities</h2>
+            <div class="recent-activity"data-aos="fade-up">
+                <p>Question added to Mathematics subject</p>
+            </div>
+            <div class="recent-activity"data-aos="fade-up">
+                <p>New question added to Physics subject</p>
+            </div>
+            <div class="recent-activity"data-aos="fade-up">
+                <p>Subject "Chemistry" added to the system</p>
+            </div>
+            <div class="recent-activity"data-aos="fade-up">
+                <p>Updated questions in the Mathematics subject</p>
+            </div>
+            <div class="recent-activity"data-aos="fade-up">
+                <p>New question paper generated for Physics</p>
+            </div>
+        </div>
+
+        <div class="articles-section" data-aos="fade-up">
+            <h2>Latest Articles</h2>
+            <!-- Article 1 -->
+            <div class="article"data-aos="fade-up">
+                <h3>Understanding the Importance of Question Banks</h3>
+                <p>Question banks play an essential role in academic preparation. Here’s how you can make the most of them by practicing more and identifying weak spots in your knowledge.</p>
+            </div>
+
+            <!-- Article 2 -->
+            <div class="article"data-aos="fade-up">
+                <h3>How to Organize Your Question Bank</h3>
+                <p>Creating a well-structured question bank can make all the difference. Here's how you can design an efficient system for organizing your questions and resources.</p>
+            </div>
+
+            <!-- Article 3 -->
+            <div class="article"data-aos="fade-up">
+                <h3>Maximizing Your Learning with Question Banks</h3>
+                <p>Learn how to effectively use question banks for learning, improving your exam performance, and organizing the study process for better results.</p>
+            </div>
+
+            <!-- Article 4: Updated Safety Article -->
+            <div class="article"data-aos="fade-up">
+                <h3>Safety on the Platform</h3>
+                <p>We prioritize the safety of your personal data and ensure that your experience is secure. Our platform is built with advanced technology to prevent unauthorized access and secure your valuable information while using our services.</p>
+            </div>
+
+            <!-- Article 5: New Features -->
+            <div class="article"data-aos="fade-up">
+                <h3>Introducing Automatic Question Paper Generation</h3>
+                <p>Our new feature allows you to automatically generate question papers based on the topics of your choice, saving you time and effort. Simply select your subjects, topics, and difficulty levels, and the system does the rest!</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<script src="https://kit.fontawesome.com/7103fc097b.js" crossorigin="anonymous"></script>
+<script>
+    window.addEventListener('scroll',()=>{
+        const scrollposition=window.scrollY;
+        if(scrollposition>=20){
+            document.getElementById("sideMenubar").style.position='fixed';
+            
+        }
+})
+
+// get element by classname return a html collection so we can not use classlist , if you want to use you have to do looping 
+
+document.getElementById('option').addEventListener("click", () => {
+    const sideMenubar = document.querySelector('.sideMenubarPopup');
+    if (sideMenubar) {
+        sideMenubar.classList.toggle('sideMenubarPopupCome');
+    }
+});
+
+
+document.getElementById('account').addEventListener("click", () => {
+    const accountMenubar = document.querySelector('.accountpopup');
+    if (accountMenubar) {
+        accountMenubar.classList.toggle('accountpopupCome');
+    }
+});
+
+window.addEventListener('scroll',()=>{
+    const scrollposition=window.scrollY;
+    if(scrollposition>=500){
+        const sideMenubar = document.querySelector('.sideMenubarPopup');
+        if (sideMenubar) {
+            sideMenubar.classList.remove('sideMenubarPopupCome');
+        }
+      
+    }
+})
+const container = document.querySelector('#sideMenubar');
+const children = container.children; // it will give us all the children present in that
+
+Array.from(children).forEach(child => {
+    child.addEventListener('mouseover', () => {
+        child.style.backgroundColor = '#9898cf';
+        child.style.borderColor = '#999';
+
+    });
+
+    child.addEventListener('mouseout', () => {
+        child.style.backgroundColor = '';
+        child.style.borderColor = '';
+    });
+});
+
+
+function menubar() {
+    let hihu = document.querySelector('.menu-data');
+    let element = document.getElementById('Menu-bar');
+    // let profilepic = document.getElementById("profilePic");
+
+
+    if (hihu) {
+        hihu.classList.remove('animate__fadeOut');
+        element.style.display = 'none';
+        hihu.style.zIndex = '1';
+        hihu.classList.add('animate__fadeIn');
+        // profilepic.remove();
+        
+
+    }
+}
+
+function closebar() {
+    let hihu = document.querySelector('.menu-data');
+    let element = document.getElementById('Menu-bar');
+    if (hihu) {
+        hihu.classList.remove('animate__fadeIn');
+        hihu.style.zIndex = '-20';
+        element.style.display = 'block';
+        hihu.classList.add('animate__fadeOut');
+    }
+}
+
+    </script>
+</body>
+</html>

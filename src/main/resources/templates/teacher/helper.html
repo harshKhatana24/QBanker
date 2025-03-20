@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Question Paper Generator</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="http://localhost:8080/css/pdfcssfile.css">
+    <script src="http://localhost:8080/js/pdfjs.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #233568; /* Dark Blue */
+            --secondary-color: #5a55af; /* Indigo */
+            --accent-color: #22D3EE; /* Cyan */
+            --background-color: #F9FAFB; /* Light Gray */
+            --text-color: #374151; /* Dark Gray */
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        /*.instructions {*/
+        /*    !*background-color: white;*!*/
+        /*    !*padding: 1rem;*!*/
+        /*    !*margin-top: 1rem;*!*/
+        /*    !*border-left: 5px solid var(--secondary-color);*!*/
+        /*    !*border-radius: 6px;*!*/
+        /*    !*box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);*!*/
+        /*}*/
+
+        .question {
+            /*background-color: white;*/
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 6px;
+            border-left: 5px solid var(--primary-color);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+        }
+
+        .image-space img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            margin-top: 0.5rem;
+        }
+
+        .mcq-options p {
+            background-color: var(--background-color);
+            padding: 0.5rem;
+            margin: 0.2rem 0;
+            border-radius: 4px;
+        }
+
+        input {
+            border: 2px solid var(--secondary-color);
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin-left: 0.5rem;
+            width: 60px;
+            text-align: center;
+        }
+
+        .download-button {
+            color: black;
+            padding: 0.8rem 1.5rem;
+
+            margin-top: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            display: block;
+
+            text-align: center;
+            font-weight: bold;
+            font-size:20px;
+
+        }
+
+
+    </style>
+</head>
+<body>
+
+<!-- Page Header -->
+<div class="header">
+    <h1 class="text-3xl font-bold">Question Paper</h1>
+<!--    <p class="mt-2 text-lg">📅 Date: <span th:text="${#dates.format(#dates.createNow(), 'dd-MM-yyyy')}"></span></p>-->
+</div>
+
+<!-- Instructions Section -->
+<!--<div class="instructions">-->
+<!--    <strong>📌 Instructions:</strong>-->
+<!--    <p>Read all the questions carefully. Answer each question in the space provided.</p>-->
+<!--    <p>No form of plagiarism will be tolerated.</p>-->
+<!--    <p>Cheating during the exam will lead to case of UFM</p>-->
+<!--</div>-->
+
+<!-- Number of Sets Input -->
+<div class="mt-4 text-lg">
+
+    <div class="flex justify-center gap-4 flex-wrap " >
+        <label class="flex items-center bg-gray-100 text-gray-700 px-6 py-2.5 rounded-lg shadow-md hover:bg-gray-200 transition">
+            <span class="mr-2 font-semibold">Number of sets</span>
+            <input id="noOfSets" type="number" min="1" th:value="${noOfSets}" class="w-20 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]"
+            required>
+        </label>
+        <label class="flex items-center bg-gray-100 text-gray-700 px-6 py-2.5 rounded-lg shadow-md hover:bg-gray-200 transition">
+            <span class="mr-2 font-semibold">Total Marks</span>
+            <input id="Marks" th:value="${Marks}"  min="1" type="number"
+                    class="w-20 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]">
+        </label>
+
+        <label class="flex items-center bg-gray-100 text-gray-700 px-6 py-2.5 rounded-lg shadow-md hover:bg-gray-200 transition">
+            <span class="mr-2 font-semibold">Time</span>
+            <input id="Time" th:value="${Time}"   min="1" type="time"
+                    class="w-28 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]">
+        </label>
+
+
+        <label class="flex items-center bg-gray-100 text-gray-700 px-6 py-2.5 rounded-lg shadow-md hover:bg-gray-200 transition">
+            <span class="mr-2 font-semibold">Course Name </span>
+            <input id="Coursename" th:value="${Coursename}"  min="1" type="text"
+                    class="w-32 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]">
+        </label>
+
+
+        <label class="flex items-center bg-gray-100 text-gray-700 px-6 py-2.5 rounded-lg shadow-md hover:bg-gray-200 transition">
+            <span class="mr-2 font-semibold">Course Code </span>
+            <input id="Coursecode" th:value="${Coursecode}"  min="1" type="text"
+                    class="w-28 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]">
+        </label>
+
+        <label class="flex items-center bg-gray-100 text-gray-700 px-6 py-2.5 rounded-lg shadow-md hover:bg-gray-200 transition">
+            <span class="mr-2 font-semibold">Date</span>
+            <input  id="Date" th:value="${Date}"  min="1" type="date"
+                   class="w-36 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]">
+        </label>
+
+        <label class="flex items-center bg-gray-100 text-gray-700 px-6 py-2.5 rounded-lg shadow-md hover:bg-gray-200 transition">
+            <span class="mr-2 font-semibold">Programme - Semester - ExamTerm </span>
+            <input id="Prosemexam" th:value="${Prosemexam}"  min="1" type="text"
+                   class="w-52 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]">
+        </label>
+
+
+    </div>
+</div>
+
+<!-- Question List -->
+<div id="content" class="mt-6">
+    <ol class="space-y-4">
+        <li th:each="ques : ${pdfQuesList}" class="question">
+            <p class="text-xl font-semibold "><span th:text="${ques.questionText}" class="mr-5">Sample Question</span>            [ <span th:text="${ques.marks}" >10</span> ]</p>
+<!--            <p class="text-gray-600"><strong>Topic:</strong> <span th:text="${ques.topic}">Sample Topic</span></p>-->
+<!--            <p class="text-gray-600 float-right"></p>-->
+
+            <!-- Space for Image -->
+            <div th:if="${ques.questionImage}" class="image-space">
+                <img th:src="@{'http://localhost:8080' + ${ques.questionImage}}" alt="Question Image">
+            </div>
+
+            <!-- MCQ Options (if applicable) -->
+            <div th:if="${ques.MCQ}" class="mcq-options mt-3">
+                <p>A) <span th:text="${ques.option1}"></span></p>
+                <p>B) <span th:text="${ques.option2}"></span></p>
+                <p>C) <span th:text="${ques.option3}"></span></p>
+                <p>D) <span th:text="${ques.option4}"></span></p>
+            </div>
+        </li>
+    </ol>
+</div>
+
+<!-- Generate PDF Button -->
+<p  class = "download-button" onclick="generatePDF()" >📥 Download PDF</p>
+<p class="download-button mt-1 text-red-600">please wait for few seconds after clicking download</p>
+
+</body>
+</html>
+

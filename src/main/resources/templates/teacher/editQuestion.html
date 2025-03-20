@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Update Question</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    function toggleQuestionFields() {
+      const questionType = document.getElementById("question-type-choose").value;
+      const mcqFields = document.getElementById("mcq-fields");
+      const correctOptionsField = document.getElementById("correct-options");
+      const inputs = mcqFields.querySelectorAll("input");
+
+      if (questionType === "true") {
+        mcqFields.classList.remove('hidden');
+        correctOptionsField.classList.remove('hidden');
+        inputs.forEach(input => input.setAttribute("required", "true"));
+      } else {
+        mcqFields.classList.add('hidden');
+        correctOptionsField.classList.add('hidden');
+        inputs.forEach(input => {
+          input.removeAttribute("required");
+          input.value = "";
+        });
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      toggleQuestionFields();
+      let selectedAnswers = [];
+      document.querySelectorAll('#correct-options input').forEach(checkbox => {
+        if (selectedAnswers.includes(checkbox.value)) {
+          checkbox.checked = true;
+        }
+      });
+    });
+  </script>
+</head>
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4 sm:p-8">
+<div class="w-full max-w-2xl bg-white rounded-xl shadow-lg p-6 sm:p-8 border-l-4 border-blue-600">
+  <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Update Question</h2>
+
+  <form th:action="@{'/teacher/QB/view/' + ${question_bank_id} + '/'+ ${question_id} + '/update'}"
+        th:object="${questionForm}"
+        method="post"
+        enctype="multipart/form-data"
+        novalidate>
+
+    <!-- Common Fields -->
+    <div class="grid md:grid-cols-2 gap-4 mb-6">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Question Text</label>
+        <input th:field="*{questionText}" type="text"
+               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+               required>
+      </div>
+
+      <!-- Topic Field -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label class="block text-sm font-medium text-gray-700">Topic</label>
+          <a th:href="@{'/teacher/QB/addQuestion/' + ${question_bank_id} + '/addTopic'}"
+             class="text-sm text-blue-600 hover:text-blue-800 hover:underline">
+            + Add New Topic
+          </a>
+        </div>
+        <select th:field="*{topic}"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+          <option value="" disabled selected>Select Topic</option>
+          <th:block th:each="i : ${topics}">
+            <option th:value="${i.topicName}" th:text="${i.topicName}"></option>
+          </th:block>
+        </select>
+      </div>
+    </div>
+
+    <!-- Question Type -->
+    <div class="mb-6">
+      <label class="block text-sm font-medium text-gray-700 mb-2">Question Type</label>
+      <select th:field="*{MCQ}" id="question-type-choose"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              onchange="toggleQuestionFields()">
+        <option value="true" th:selected="${questionForm.MCQ}">Multiple Choice (MCQ)</option>
+        <option value="false" th:selected="${!questionForm.MCQ}">Subjective Answer</option>
+      </select>
+    </div>
+
+    <!-- MCQ Fields -->
+    <div id="mcq-fields" class="hidden mb-6 space-y-4">
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Option A</label>
+          <input th:field="*{option1}" type="text"
+                 class="w-full px-3 py-2 bg-transparent focus:outline-none">
+        </div>
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Option B</label>
+          <input th:field="*{option2}" type="text"
+                 class="w-full px-3 py-2 bg-transparent focus:outline-none">
+        </div>
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Option C</label>
+          <input th:field="*{option3}" type="text"
+                 class="w-full px-3 py-2 bg-transparent focus:outline-none">
+        </div>
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Option D</label>
+          <input th:field="*{option4}" type="text"
+                 class="w-full px-3 py-2 bg-transparent focus:outline-none">
+        </div>
+      </div>
+    </div>
+
+    <!-- Correct Answers -->
+    <div id="correct-options" class="hidden bg-gray-50 rounded-lg mb-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 divide-x divide-gray-200">
+        <div class="p-4">
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" th:field="*{correctMCQAnswer}" value="A"
+                   class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+            <span class="text-sm">Option A</span>
+          </label>
+        </div>
+        <div class="p-4">
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" th:field="*{correctMCQAnswer}" value="B"
+                   class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+            <span class="text-sm">Option B</span>
+          </label>
+        </div>
+        <div class="p-4">
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" th:field="*{correctMCQAnswer}" value="C"
+                   class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+            <span class="text-sm">Option C</span>
+          </label>
+        </div>
+        <div class="p-4">
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" th:field="*{correctMCQAnswer}" value="D"
+                   class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+            <span class="text-sm">Option D</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Marks & Image -->
+    <div class="grid md:grid-cols-2 gap-4 mb-6">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Marks</label>
+        <input th:field="*{marks}" type="number"
+               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+               required>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Question Image</label>
+        <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-500 transition-colors">
+          <input th:field="*{questionImg}" type="file"
+                 class="w-full text-sm text-gray-500 file:hidden"
+                 accept="image/*">
+        </div>
+      </div>
+    </div>
+
+    <!-- Solution -->
+    <div class="mb-8">
+      <label class="block text-sm font-medium text-gray-700 mb-2">Solution</label>
+      <textarea th:field="*{solution}"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent h-32"
+                placeholder="Detailed solution..."></textarea>
+    </div>
+
+    <!-- Form Actions -->
+    <div class="flex flex-col sm:flex-row justify-center gap-4">
+      <button type="submit"
+              class="w-full sm:w-auto px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
+        Update Question
+      </button>
+      <a th:href="@{'/teacher/QB/view/' + ${question_bank_id}}"
+         class="w-full sm:w-auto px-8 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-center font-medium">
+        Cancel
+      </a>
+    </div>
+
+<!--    <div th:text="@{'http://localhost:8080'+${image}}"></div>-->
+  </form>
+</div>
+</body>
+</html>

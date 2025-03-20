@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Q-Banker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="font-[Poppins] bg-gray-50">
+<!-- Navigation -->
+<nav class="bg-white shadow-lg fixed w-full z-50">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="flex justify-between items-center h-16">
+            <div class="flex items-center">
+                <img src="/images/iitram_logo_only-removebg-preview.png" class="h-12 w-auto mr-4" alt="Logo">
+                <span class="text-xl font-bold text-gray-800">Q-Banker</span>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="/teacher/QB/add" class="text-gray-600 hover:text-blue-600 transition-colors">My Subjects</a>
+                <a href="/teacher/about" class="text-blue-600">About</a>
+                <a href="/teacher/profile" class="flex items-center space-x-2">
+                    <img src="https://tse4.mm.bing.net/th?id=OIP.Zmki3GIiRk-XKTzRRlxn4QHaER&pid=Api&P=0&h=180" class="h-8 w-8 rounded-full object-cover" alt="Profile">
+                    <span class="text-gray-600 hover:text-blue-600">Profile</span>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden p-2 text-gray-600">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden absolute w-full bg-white shadow-lg py-4">
+        <a href="/teacher/QB/add" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">My Subjects</a>
+        <a href="/teacher/about" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">About</a>
+        <a href="/teacher/profile" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Profile Settings</a>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<main class="pt-32 pb-12 px-4 max-w-7xl mx-auto">
+    <!-- Header Section -->
+    <header class="text-center mb-16" data-aos="fade-up">
+        <h1 class="text-4xl font-bold text-gray-800 mb-4">Welcome to Q-Banker</h1>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+            Your Ultimate Platform for Comprehensive Question Bank Management
+        </p>
+    </header>
+
+    <!-- About Section -->
+    <section class="mb-20" data-aos="fade-up">
+        <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">Why Q-Banker?</h2>
+            <p class="text-gray-600 leading-relaxed">
+                Q-Banker is the next-generation question bank system designed for educators and institutions.
+                It provides advanced tools to simplify question management, paper generation, and learning processes.
+                Whether creating assignments, exam papers with multiple sets, or designing entire syllabi—we have you covered!
+            </p>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow" data-aos="fade-up">
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">Dynamic Question Categories</h3>
+                <p class="text-gray-600">Organize questions into subjects and categories (MCQ, Descriptive, True/False)</p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow" data-aos="fade-up">
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">Detailed Solutions</h3>
+                <p class="text-gray-600">Provide comprehensive solutions to enhance learning outcomes</p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow" data-aos="fade-up">
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">Smart Paper Generation</h3>
+                <p class="text-gray-600">Create customized exams with automated difficulty balancing</p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow" data-aos="fade-up">
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">Cloud Management</h3>
+                <p class="text-gray-600">Access and edit question banks anytime, anywhere</p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow" data-aos="fade-up">
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">Advanced Analytics</h3>
+                <p class="text-gray-600">Track question usage and student performance metrics</p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow" data-aos="fade-up">
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">Collaboration Tools</h3>
+                <p class="text-gray-600">Work seamlessly with department colleagues</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="mb-20" data-aos="fade-up">
+        <h2 class="text-3xl font-bold text-gray-800 mb-12 text-center">Our Leadership Team</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto">
+            <!-- Team Member 1 -->
+            <div class="bg-white rounded-xl shadow-md p-6 text-center">
+                <img src="https://tse4.mm.bing.net/th?id=OIP.LtLk-vQkLJGggWTN032pPwHaLH&pid=Api&P=0&h=180" alt="Vikram Singh"
+                     class="w-32 h-32 rounded-full mx-auto mb-4 object-cover">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Vikram Singh</h3>
+                <div class="flex justify-center space-x-4">
+                    <a href="#" class="text-gray-500 hover:text-blue-600">
+                        <i class="fab fa-linkedin text-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-blue-600">
+                        <i class="fab fa-github text-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-blue-600">
+                        <i class="fab fa-twitter text-lg"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Team Member 2 -->
+            <div class="bg-white rounded-xl shadow-md p-6 text-center">
+                <img src="/images/harsh-image.jpeg" alt="Harsh Khatana"
+                     class="w-32 h-32 rounded-full mx-auto mb-4 object-cover">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Harsh Khatana</h3>
+                <div class="flex justify-center space-x-4">
+                    <a href="https://www.linkedin.com/in/harsh-khatana-893ab331a" class="text-gray-500 hover:text-blue-600">
+                        <i class="fab fa-linkedin text-lg"></i>
+                    </a>
+                    <a href="https://github.com/harshKhatana24" class="text-gray-500 hover:text-blue-600">
+                        <i class="fab fa-github text-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-blue-600">
+                        <i class="fab fa-twitter text-lg"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="border-t border-gray-200">
+    <div class="max-w-7xl mx-auto py-8 px-4">
+        <p class="text-center text-gray-600">
+            © 2024 Q-Banker. Empowering educators through intelligent question management.
+        </p>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+    AOS.init({
+        easing: 'ease-in-out',
+        duration: 1000,
+        once: true
+    });
+
+    // Mobile Menu Toggle
+    document.getElementById('mobile-menu-button').addEventListener('click', () => {
+        document.getElementById('mobile-menu').classList.toggle('hidden');
+    });
+</script>
+</body>
+</html>

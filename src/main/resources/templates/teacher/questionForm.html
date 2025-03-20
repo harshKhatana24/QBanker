@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Question</title>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/output.css">
+    <style>
+        :root {
+            --primary-color: #0A1931;  /* Dark Navy */
+            --secondary-color: #185ADB;  /* Vibrant Blue */
+            --accent-color: #FFC947;  /* Golden Yellow */
+            --background-color: #F8F9FF;  /* Light Blue-White */
+            --text-color: #2A2A4A;
+        }
+
+        .form-container {
+            background: white;
+            border-left: 4px solid var(--secondary-color);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .input-field {
+            border: 2px solid #D1D5DB;
+            color: var(--text-color);
+        }
+
+        .input-field:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(24,90,219,0.1);
+        }
+
+        .option-card {
+            background: #F1F5F9;
+            border: 2px solid #CBD5E1;
+        }
+
+        .checkbox-group {
+            background: #F1F5F9;
+            border: 2px solid #CBD5E1;
+        }
+
+        .file-upload {
+            border: 2px dashed #94A3B8;
+            background: #F8FAFC;
+        }
+
+        .file-upload:hover {
+            border-color: var(--secondary-color);
+        }
+
+        button, a {
+            transition: all 0.2s ease;
+        }
+    </style>
+
+    <script>
+        function toggleQuestionFields() {
+            const questionType = document.getElementById("question-type-choose").value;
+            const mcqFields = document.getElementById("mcq-fields");
+            const correctOptionsField = document.getElementById("correct-options");
+            const inputs = mcqFields.querySelectorAll("input");
+
+            if (questionType === "true") {
+                mcqFields.classList.remove('hidden');
+                correctOptionsField.style.display = "block";
+                inputs.forEach(input => input.setAttribute("required", "true"));
+            } else {
+                mcqFields.classList.add('hidden');
+                correctOptionsField.style.display = "none";
+                inputs.forEach(input => {
+                    input.removeAttribute("required");
+                    input.value = ""; // Clear MCQ fields
+                });
+                // document.querySelectorAll('#correct-options input').forEach(checkbox => {
+                //     checkbox.checked = false; // Uncheck correct options
+                // });
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            toggleQuestionFields();
+            let selectedAnswers = [];
+            document.querySelectorAll('#correct-options input').forEach(checkbox => {
+                if (selectedAnswers.includes(checkbox.value)) {
+                    checkbox.checked = true;
+                }
+            });
+        });
+    </script>
+
+</head>
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4 sm:p-8">
+
+<div class="form-container w-full max-w-2xl p-6 sm:p-8">
+    <h2 class="text-2xl font-bold text-[var(--primary-color)] mb-6 text-center">Add New Question</h2>
+
+    <form th:object="${question}"
+          th:action="@{'/teacher/QB/addQuestion/' + ${question_bank_id}}"
+          method="post"
+          enctype="multipart/form-data" novalidate>
+
+        <!-- Common Fields -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Question Text</label>
+                <input th:field="*{questionText}" type="text"
+                       class="input-field w-full rounded-lg p-3 focus:outline-none"
+                       required>
+            </div>
+
+            <!-- Topic Field -->
+            <div>
+                <div class="flex items-center justify-between mb-1">
+                    <label class="block text-sm font-medium text-gray-700">Topic</label>
+                    <a th:href="@{'/teacher/QB/addQuestion/' + ${question_bank_id} + '/addTopic'}"
+                       class="text-sm text-[var(--secondary-color)] hover:underline">
+                        + Add New Topic
+                    </a>
+                </div>
+                <select th:field="*{topic}"
+                        class="input-field w-full rounded-lg p-2.5 focus:outline-none">
+                    <option value="" disabled selected>Select Topic</option>
+                    <th:block th:each="i : ${newTopicList}">
+                        <option th:value="${i.topicName}" th:text="${i.topicName}"></option>
+                    </th:block>
+                </select>
+            </div>
+        </div>
+
+        <!-- Question Type -->
+        <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-1">Question Type</label>
+            <select th:field="*{MCQ}" id="question-type-choose"
+                    class="input-field w-full rounded-lg p-2.5 focus:outline-none"
+                    onchange="toggleQuestionFields()">
+                <option value="true" th:selected="${question.MCQ}">Multiple Choice (MCQ)</option>
+                <option value="false" th:selected="${!question.MCQ}">Subjective Answer</option>
+            </select>
+        </div>
+
+        <!-- MCQ Fields -->
+        <div id="mcq-fields" class="mb-4 space-y-4" th:classappend="${!question.MCQ ? 'hidden' : ''}">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="option-card p-3">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Option A</label>
+                    <input th:field="*{option1}" type="text"
+                           class="w-full bg-transparent focus:outline-none">
+                </div>
+                <div class="option-card p-3">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Option B</label>
+                    <input th:field="*{option2}" type="text"
+                           class="w-full bg-transparent focus:outline-none">
+                </div>
+                <div class="option-card p-3">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Option C</label>
+                    <input th:field="*{option3}" type="text"
+                           class="w-full bg-transparent focus:outline-none">
+                </div>
+                <div class="option-card p-3">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Option D</label>
+                    <input th:field="*{option4}" type="text"
+                           class="w-full bg-transparent focus:outline-none">
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Correct Answers (Hidden by Default) -->
+        <div th:classappend="${!question.MCQ ? 'hidden' : ''}" id="correct-options" class="checkbox-group flex divide-x">
+            <div class="checkbox-item flex-1 p-3">
+                <label class="flex items-center space-x-2">
+                    <input type="checkbox" th:field="*{correctMCQAnswer}" value="A"
+                           class="rounded text-[var(--secondary-color)] focus:ring-[var(--secondary-color)]">
+                    <span>Option A</span>
+                </label>
+            </div>
+            <div class="checkbox-item flex-1 p-3">
+                <label class="flex items-center space-x-2">
+                    <input type="checkbox" th:field="*{correctMCQAnswer}" value="B"
+                           class="rounded text-[var(--secondary-color)] focus:ring-[var(--secondary-color)]">
+                    <span>Option B</span>
+                </label>
+            </div>
+            <div class="checkbox-item flex-1 p-3">
+                <label class="flex items-center space-x-2">
+                    <input type="checkbox" th:field="*{correctMCQAnswer}" value="C"
+                           class="rounded text-[var(--secondary-color)] focus:ring-[var(--secondary-color)]">
+                    <span>Option C</span>
+                </label>
+            </div>
+            <div class="checkbox-item flex-1 p-3">
+                <label class="flex items-center space-x-2">
+                    <input type="checkbox" th:field="*{correctMCQAnswer}" value="D"
+                           class="rounded text-[var(--secondary-color)] focus:ring-[var(--secondary-color)]">
+                    <span>Option D</span>
+                </label>
+            </div>
+        </div>
+
+
+
+        <!-- Marks & Image -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Marks</label>
+                <input th:field="*{marks}" type="number"
+                       class="input-field w-full rounded-lg p-3 focus:outline-none"
+                       required>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Question Image</label>
+                <div class="file-upload p-4 text-center">
+                    <input th:field="${question.questionImg}" type="file"
+                           class="w-full text-sm text-gray-500 file:hidden"
+                           accept="image/*">
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Solution -->
+        <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-1">Solution</label>
+            <textarea th:field="*{solution}"
+                      class="input-field w-full rounded-lg p-3 focus:outline-none h-32"
+                      placeholder="Detailed solution..."></textarea>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="flex flex-col sm:flex-row justify-center gap-4 mt-5">
+            <button type="submit"
+                    class="bg-blue-800 text-white font-bold px-8 py-3 rounded-lg hover:bg-blue-900 transition-all">
+                Add Question
+            </button>
+            <a th:href="@{'/teacher/QB/view/' + ${question_bank_id}}"
+               class="bg-gray-100 text-gray-700 px-8 py-3 rounded-lg hover:bg-gray-200 transition-all text-center">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>
+
+<script>
+    function toggleQuestionFields() {
+        const questionType = document.getElementById("question-type-choose").value;
+        const mcqFields = document.getElementById("mcq-fields");
+        const inputs = mcqFields.querySelectorAll("input");
+
+        if (questionType === "true") {
+            mcqFields.classList.remove('hidden');
+            inputs.forEach(input => input.setAttribute("required", "true"));
+        } else {
+            mcqFields.classList.add('hidden');
+            inputs.forEach(input => {
+                input.removeAttribute("required");
+                input.value = "";
+            });
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        toggleQuestionFields();
+        let selectedAnswers = [];
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            if (selectedAnswers.includes(checkbox.value)) {
+                checkbox.checked = true;
+            }
+        });
+    });
+</script>
+</body>
+</html>

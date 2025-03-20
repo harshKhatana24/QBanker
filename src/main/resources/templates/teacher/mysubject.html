@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Q-Banker Subjects</title>
+    <link rel="stylesheet" href="/css/mysubject.css" />
+    <link rel="stylesheet" href="/css/output.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="bg-gray-50">
+<!-- Navigation -->
+<nav class="bg-white shadow-lg fixed w-full z-50">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="flex justify-between items-center h-16">
+            <div class="flex items-center">
+                <img src="/images/iitram_logo_only-removebg-preview.png" class="h-12 w-auto mr-4" alt="Logo">
+                <span class="text-xl font-bold text-gray-800">Q-Banker</span>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="/teacher/QB/add" class="text-gray-600 hover:text-blue-600 transition-colors">My Subjects</a>
+                <a href="/teacher/about" class="text-gray-600">About</a>
+                <a href="/teacher/profile" class="flex items-center space-x-2">
+                    <img src="https://tse4.mm.bing.net/th?id=OIP.Zmki3GIiRk-XKTzRRlxn4QHaER&pid=Api&P=0&h=180" class="h-8 w-8 rounded-full object-cover" alt="Profile">
+                    <span class="text-gray-600 hover:text-blue-600">Profile</span>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden p-2 text-gray-600">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden absolute w-full bg-white shadow-lg py-4">
+        <a href="/teacher/QB/add" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">My Subjects</a>
+        <a href="/teacher/about" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">About</a>
+        <a href="/teacher/profile" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Profile Settings</a>
+    </div>
+</nav>
+
+<main class="pt-24 pb-12 px-4 max-w-7xl mx-auto">
+    <!-- ... (keep existing sections up to stats cards unchanged) ... -->
+    <section class="mb-12">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">Welcome back, <span class="text-blue-600">Vikram</span></h1>
+                <p class="text-gray-600">Manage your question banks and track your progress</p>
+            </div>
+            <div class="mt-4 md:mt-0 flex gap-4">
+                <button id="AddSubject" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                    + Add Subject
+                </button>
+                <a href="/teacher/QB/view" class="bg-gray-800 text-white px-6 py-2 rounded-lg hover:bg-gray-900 transition-colors">
+                    View Question Bank
+                </a>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div class="bg-white p-6 rounded-xl shadow-sm">
+                <h3 class="text-gray-500 text-sm mb-2">Total Subjects</h3>
+                <p class="text-3xl font-bold text-gray-800" th:text="${NoOfQuestionBanks}"></p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm">
+                <h3 class="text-gray-500 text-sm mb-2">Total Questions</h3>
+                <p class="text-3xl font-bold text-gray-800" th:text="${NoOfQuestions}"></p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm flex items-center">
+                <a href="/files/questions.xlsx" class="text-blue-600 hover:text-blue-700 flex items-center">
+                    <i class="fas fa-file-excel mr-2"></i>
+                    Download Excel Template
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- Add Subject Modal -->
+    <div id="subjectModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl w-full max-w-md p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold text-gray-800">Create New Subject</h3>
+                <button id="closeModal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form action="/teacher/QB/add" method="POST" th:object="${questionBankForm}">
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Subject Name</label>
+                    <input type="text" th:field="*{name}"
+                           class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Academic Session</label>
+                    <input type="text" th:field="*{teacherName}"
+                           class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                    Create Subject
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Subjects Overview Section (Keep as is) -->
+    <div class="main-section">
+        <div data-aos="fade-up" class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">Recent Questions</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Question Card 1 -->
+                <div class="bg-white rounded-xl shadow-sm p-6 transition-all hover:shadow-md">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-2"
+                                data-th-text="${question1.questionText}"></h3>
+                            <div class="space-y-1 text-sm">
+                                <p class="text-gray-600">
+                                    <span class="font-medium">Topic:</span>
+                                    <span data-th-text="${question1.topic}"></span>
+                                </p>
+                                <p class="text-gray-600">
+                                    <span class="font-medium">Marks:</span>
+                                    <span data-th-text="${question1.marks}"></span>
+                                </p>
+                                <p class="text-gray-600">
+                                    <span class="font-medium">Solution:</span>
+                                    <span data-th-text="${question1.solution}"></span>
+                                </p>
+                            </div>
+                        </div>
+                        <span class="ml-4 inline-flex items-center px-3 py-1 rounded-full text-sm font-medium"
+                              th:class="${question1.MCQ} ? 'bg-green-100 text-green-800' : 'bg-purple-100 text-purple-800'"
+                              data-th-text="${question1.MCQ} ? 'MCQ' : 'Descriptive'">
+                    </span>
+                    </div>
+                    <div class="flex items-center justify-end space-x-4 border-t pt-4">
+                        <a th:href="'/teacher/QB/view/' + ${id1} + '/' + ${question1.questionId} + '/update'"
+                           class="text-blue-600 hover:text-blue-800 flex items-center">
+                            <i class="fas fa-edit mr-2"></i>Update
+                        </a>
+                        <a th:href="'/teacher/QB/view/'+ ${id1} + '/' + ${question1.questionId} + '/view'"
+                           class="text-gray-600 hover:text-gray-800 flex items-center">
+                            <i class="fas fa-eye mr-2"></i>View
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Question Card 2 -->
+                <div class="bg-white rounded-xl shadow-sm p-6 transition-all hover:shadow-md">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-2"
+                                data-th-text="${question2.questionText}"></h3>
+                            <div class="space-y-1 text-sm">
+                                <p class="text-gray-600">
+                                    <span class="font-medium">Topic:</span>
+                                    <span data-th-text="${question2.topic}"></span>
+                                </p>
+                                <p class="text-gray-600">
+                                    <span class="font-medium">Marks:</span>
+                                    <span data-th-text="${question2.marks}"></span>
+                                </p>
+                                <p class="text-gray-600">
+                                    <span class="font-medium">Solution:</span>
+                                    <span data-th-text="${question2.solution}"></span>
+                                </p>
+                            </div>
+                        </div>
+                        <span class="ml-4 inline-flex items-center px-3 py-1 rounded-full text-sm font-medium"
+                              th:class="${question2.MCQ} ? 'bg-green-100 text-green-800' : 'bg-purple-100 text-purple-800'"
+                              data-th-text="${question2.MCQ} ? 'MCQ' : 'Descriptive'">
+                    </span>
+                    </div>
+                    <div class="flex items-center justify-end space-x-4 border-t pt-4">
+                        <a th:href="'/teacher/QB/view/' + ${id2} + '/' + ${question2.questionId} + '/update'"
+                           class="text-blue-600 hover:text-blue-800 flex items-center">
+                            <i class="fas fa-edit mr-2"></i>Update
+                        </a>
+                        <a th:href="'/teacher/QB/view/'+ ${id2} + '/' + ${question2.questionId} + '/view'"
+                           class="text-gray-600 hover:text-gray-800 flex items-center">
+                            <i class="fas fa-eye mr-2"></i>View
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    // Mobile Menu Toggle
+    document.getElementById('mobile-menu-button').addEventListener('click', () => {
+        document.getElementById('mobile-menu').classList.toggle('hidden');
+    });
+
+    // Subject Modal Handling
+    const modal = document.getElementById('subjectModal');
+    document.getElementById('AddSubject').addEventListener('click', () => modal.classList.remove('hidden'));
+    document.getElementById('closeModal').addEventListener('click', () => modal.classList.add('hidden'));
+    window.addEventListener('click', (e) => {
+        if(e.target === modal) modal.classList.add('hidden');
+    });
+</script>
+<script src="/js/questions.js"></script>
+</body>
+</html>

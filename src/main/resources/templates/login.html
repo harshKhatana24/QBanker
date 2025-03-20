@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q-Banker Login</title>
+    <link rel="stylesheet" href="/css/login.css" />
+<!--    <link rel="stylesheet" href="/css/output.css" />-->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+</head>
+<body>
+
+    <div class="container">
+      <div class="forms">
+
+
+<!--        login form-->
+        <div class="form login">
+          <span class="title">Login</span>
+
+            <form
+
+                    method="post"
+                    th:action="@{'/authenticate'}"
+                    class="form"
+                    novalidate>
+
+
+<!--                <h1 class="title">Login</h1>-->
+
+                <div class="inputContainer">
+                    <label for="emailLogin" class="label">Email</label>
+
+                    <input
+                            name="email"
+                            id="emailLogin"
+                            type="text"
+                            class="input input-field "
+                            placeholder=""
+                            required />
+                </div>
+
+                <div class="inputContainer">
+                    <label for="passwordLogin" class="label">Password</label>
+
+                    <input
+
+                            name="password"
+                            id="passwordLogin"
+                            type="password"
+                            class="input input-field "
+                            placeholder=""
+                            required />
+                </div>
+
+                <input
+                        type="submit"
+                        class="submitBtn"
+                        id="loginsubmitbtn"
+                        value="Login"
+                />
+            </form>
+
+          <div class="login-signup">
+            <span class="text"
+              >Not a member?
+              <a href="/" class="text signup-link">Signup Now</a>
+            </span>
+          </div>
+        </div>
+
+
+
+
+        <!-- Registration Form -->
+        <div class="form signup">
+          <span class="title">Registration</span>
+
+            <form
+                    data-th-action="@{'/do-register'}"
+                    method="post"
+                    data-th-object="${teacherForm}"
+                    class="form"
+                    enctype="multipart/form-data"
+                    novalidate
+            >
+                <!--      message here-->
+                <div data-th-replace="~{message :: messageBox}"></div>
+
+<!--                <h1 class="title">Sign up</h1>-->
+
+                <div class="inputContainer ">
+
+                    <label for="email" class="label">Email</label>
+
+                    <input
+                            id="email"
+                            type="text"
+                            th:field="*{email}"
+                            class="input input-field "
+                            placeholder="" />
+
+                    <p
+                            data-th-if="${#fields.hasErrors('email')}"
+                            data-th-errors="*{email}"
+                            class="text-red-600"></p>
+
+                </div>
+
+                <div class="inputContainer">
+
+                    <label for="name" class="label">Username</label>
+
+                    <input
+
+                            id="name"
+                            type="text"
+                            th:field="*{name}"
+                            class="input input-field "
+                            placeholder="" />
+
+
+                    <p
+                            data-th-if="${#fields.hasErrors('name')}"
+                            data-th-errors="*{name}"
+                            class="text-red-600"></p>
+
+
+                </div>
+
+                <div class="inputContainer">
+                    <label for="password" class="label">Password</label>
+
+                    <div class="relative">
+                        <input
+                                id="password"
+                                type="password"
+                                th:field="*{pasword}"
+                                class="input pr-10 input-field "
+                                placeholder=""
+                        />
+                        <button type="button" onclick="togglePassword()" class="password-toggle absolute right-2 top-2 text-gray-500">
+                            👁️
+                        </button>
+                    </div>
+
+                    <p
+                            data-th-if="${#fields.hasErrors('pasword')}"
+                            data-th-errors="*{pasword}"
+                            class="text-red-600"
+                    ></p>
+                </div>
+
+
+                <div class="inputContainer">
+
+                    <div class="mb-4">
+                        <label class="label" for="image_file_input">Contact Image</label>
+
+                        <input
+                                data-th-field="*{contactImg}"
+
+                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                aria-describedby="user_avatar_help"
+                                id="image_file_input"
+                                type="file">
+
+
+                        <img class="max-h-52 mx-auto rounded-lg m-3" src="" id="upload-image-preview" alt="">
+
+                    </div>
+
+                </div>
+                <input
+                        type="submit"
+                        class="submitBtn"
+                        id="signupsubmitBtn"
+                        value="Sign up"
+                />
+            </form>
+
+
+
+          <div class="login-signup">
+            <span class="text"
+              >Already a member?
+              <a href="#" class="text login-link">Login Now</a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <script src="/js/login.js"></script>
+
+
+
+<script>
+    function togglePassword() {
+        let passwordField = document.getElementById("password");
+        passwordField.type = passwordField.type === "password" ? "text" : "password";
+    }
+    window.onload = function() {
+        document.querySelector(".container").classList.remove("active");
+    };
+
+</script>
+</body>
+</html>
