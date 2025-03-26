@@ -23,10 +23,13 @@ public class RootController {
     //hum jab bhi koi user ka profile, dashboard call kare tu yea call ho jaye
     //agar model attribute likh diya tu yea controller ke has method se phele chalega
     @ModelAttribute
-    public void addLoggedInUserInformation(Model model, Authentication authentication){
+    public Teacher addLoggedInUserInformation(Model model, Authentication authentication){
         //agar login  nhi hai tu phir execute nhi karega means koi info add he nhi karega
         if (authentication == null){
-            return;
+            System.out.println();
+            System.out.println("Teacher not found using RootController");
+            System.out.println();
+            return null;
         }
 
 
@@ -42,6 +45,7 @@ public class RootController {
         System.out.println(teacher.getName());
         System.out.println(teacher.getEmail());
 
+        return teacher;
     }
 
 }

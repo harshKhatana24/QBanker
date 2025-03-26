@@ -109,88 +109,88 @@
     </div>
 
     <!-- Subjects Overview Section (Keep as is) -->
-    <div class="main-section">
-        <div data-aos="fade-up" class="mb-12">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">Recent Questions</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Question Card 1 -->
-                <div class="bg-white rounded-xl shadow-sm p-6 transition-all hover:shadow-md">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="flex-1">
-                            <h3 class="text-lg font-semibold text-gray-800 mb-2"
-                                data-th-text="${question1.questionText}"></h3>
-                            <div class="space-y-1 text-sm">
-                                <p class="text-gray-600">
-                                    <span class="font-medium">Topic:</span>
-                                    <span data-th-text="${question1.topic}"></span>
-                                </p>
-                                <p class="text-gray-600">
-                                    <span class="font-medium">Marks:</span>
-                                    <span data-th-text="${question1.marks}"></span>
-                                </p>
-                                <p class="text-gray-600">
-                                    <span class="font-medium">Solution:</span>
-                                    <span data-th-text="${question1.solution}"></span>
-                                </p>
-                            </div>
-                        </div>
-                        <span class="ml-4 inline-flex items-center px-3 py-1 rounded-full text-sm font-medium"
-                              th:class="${question1.MCQ} ? 'bg-green-100 text-green-800' : 'bg-purple-100 text-purple-800'"
-                              data-th-text="${question1.MCQ} ? 'MCQ' : 'Descriptive'">
-                    </span>
-                    </div>
-                    <div class="flex items-center justify-end space-x-4 border-t pt-4">
-                        <a th:href="'/teacher/QB/view/' + ${id1} + '/' + ${question1.questionId} + '/update'"
-                           class="text-blue-600 hover:text-blue-800 flex items-center">
-                            <i class="fas fa-edit mr-2"></i>Update
-                        </a>
-                        <a th:href="'/teacher/QB/view/'+ ${id1} + '/' + ${question1.questionId} + '/view'"
-                           class="text-gray-600 hover:text-gray-800 flex items-center">
-                            <i class="fas fa-eye mr-2"></i>View
-                        </a>
-                    </div>
-                </div>
+<!--    <div class="main-section">-->
+<!--        <div data-aos="fade-up" class="mb-12">-->
+<!--            <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">Recent Questions</h2>-->
+<!--            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">-->
+<!--                &lt;!&ndash; Question Card 1 &ndash;&gt;-->
+<!--                <div class="bg-white rounded-xl shadow-sm p-6 transition-all hover:shadow-md">-->
+<!--                    <div class="flex justify-between items-start mb-4">-->
+<!--                        <div class="flex-1">-->
+<!--                            <h3 class="text-lg font-semibold text-gray-800 mb-2"-->
+<!--                                data-th-text="${question1.questionText}"></h3>-->
+<!--                            <div class="space-y-1 text-sm">-->
+<!--                                <p class="text-gray-600">-->
+<!--                                    <span class="font-medium">Topic:</span>-->
+<!--                                    <span data-th-text="${question1.topic}"></span>-->
+<!--                                </p>-->
+<!--                                <p class="text-gray-600">-->
+<!--                                    <span class="font-medium">Marks:</span>-->
+<!--                                    <span data-th-text="${question1.marks}"></span>-->
+<!--                                </p>-->
+<!--                                <p class="text-gray-600">-->
+<!--                                    <span class="font-medium">Solution:</span>-->
+<!--                                    <span data-th-text="${question1.solution}"></span>-->
+<!--                                </p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <span class="ml-4 inline-flex items-center px-3 py-1 rounded-full text-sm font-medium"-->
+<!--                              th:class="${question1.MCQ} ? 'bg-green-100 text-green-800' : 'bg-purple-100 text-purple-800'"-->
+<!--                              data-th-text="${question1.MCQ} ? 'MCQ' : 'Descriptive'">-->
+<!--                    </span>-->
+<!--                    </div>-->
+<!--                    <div class="flex items-center justify-end space-x-4 border-t pt-4">-->
+<!--                        <a th:href="'/teacher/QB/view/' + ${id1} + '/' + ${question1.questionId} + '/update'"-->
+<!--                           class="text-blue-600 hover:text-blue-800 flex items-center">-->
+<!--                            <i class="fas fa-edit mr-2"></i>Update-->
+<!--                        </a>-->
+<!--                        <a th:href="'/teacher/QB/view/'+ ${id1} + '/' + ${question1.questionId} + '/view'"-->
+<!--                           class="text-gray-600 hover:text-gray-800 flex items-center">-->
+<!--                            <i class="fas fa-eye mr-2"></i>View-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                </div>-->
 
-                <!-- Question Card 2 -->
-                <div class="bg-white rounded-xl shadow-sm p-6 transition-all hover:shadow-md">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="flex-1">
-                            <h3 class="text-lg font-semibold text-gray-800 mb-2"
-                                data-th-text="${question2.questionText}"></h3>
-                            <div class="space-y-1 text-sm">
-                                <p class="text-gray-600">
-                                    <span class="font-medium">Topic:</span>
-                                    <span data-th-text="${question2.topic}"></span>
-                                </p>
-                                <p class="text-gray-600">
-                                    <span class="font-medium">Marks:</span>
-                                    <span data-th-text="${question2.marks}"></span>
-                                </p>
-                                <p class="text-gray-600">
-                                    <span class="font-medium">Solution:</span>
-                                    <span data-th-text="${question2.solution}"></span>
-                                </p>
-                            </div>
-                        </div>
-                        <span class="ml-4 inline-flex items-center px-3 py-1 rounded-full text-sm font-medium"
-                              th:class="${question2.MCQ} ? 'bg-green-100 text-green-800' : 'bg-purple-100 text-purple-800'"
-                              data-th-text="${question2.MCQ} ? 'MCQ' : 'Descriptive'">
-                    </span>
-                    </div>
-                    <div class="flex items-center justify-end space-x-4 border-t pt-4">
-                        <a th:href="'/teacher/QB/view/' + ${id2} + '/' + ${question2.questionId} + '/update'"
-                           class="text-blue-600 hover:text-blue-800 flex items-center">
-                            <i class="fas fa-edit mr-2"></i>Update
-                        </a>
-                        <a th:href="'/teacher/QB/view/'+ ${id2} + '/' + ${question2.questionId} + '/view'"
-                           class="text-gray-600 hover:text-gray-800 flex items-center">
-                            <i class="fas fa-eye mr-2"></i>View
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<!--                &lt;!&ndash; Question Card 2 &ndash;&gt;-->
+<!--                <div class="bg-white rounded-xl shadow-sm p-6 transition-all hover:shadow-md">-->
+<!--                    <div class="flex justify-between items-start mb-4">-->
+<!--                        <div class="flex-1">-->
+<!--                            <h3 class="text-lg font-semibold text-gray-800 mb-2"-->
+<!--                                data-th-text="${question2.questionText}"></h3>-->
+<!--                            <div class="space-y-1 text-sm">-->
+<!--                                <p class="text-gray-600">-->
+<!--                                    <span class="font-medium">Topic:</span>-->
+<!--                                    <span data-th-text="${question2.topic}"></span>-->
+<!--                                </p>-->
+<!--                                <p class="text-gray-600">-->
+<!--                                    <span class="font-medium">Marks:</span>-->
+<!--                                    <span data-th-text="${question2.marks}"></span>-->
+<!--                                </p>-->
+<!--                                <p class="text-gray-600">-->
+<!--                                    <span class="font-medium">Solution:</span>-->
+<!--                                    <span data-th-text="${question2.solution}"></span>-->
+<!--                                </p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <span class="ml-4 inline-flex items-center px-3 py-1 rounded-full text-sm font-medium"-->
+<!--                              th:class="${question2.MCQ} ? 'bg-green-100 text-green-800' : 'bg-purple-100 text-purple-800'"-->
+<!--                              data-th-text="${question2.MCQ} ? 'MCQ' : 'Descriptive'">-->
+<!--                    </span>-->
+<!--                    </div>-->
+<!--                    <div class="flex items-center justify-end space-x-4 border-t pt-4">-->
+<!--                        <a th:href="'/teacher/QB/view/' + ${id2} + '/' + ${question2.questionId} + '/update'"-->
+<!--                           class="text-blue-600 hover:text-blue-800 flex items-center">-->
+<!--                            <i class="fas fa-edit mr-2"></i>Update-->
+<!--                        </a>-->
+<!--                        <a th:href="'/teacher/QB/view/'+ ${id2} + '/' + ${question2.questionId} + '/view'"-->
+<!--                           class="text-gray-600 hover:text-gray-800 flex items-center">-->
+<!--                            <i class="fas fa-eye mr-2"></i>View-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 </main>
 
 <script>
@@ -207,6 +207,7 @@
         if(e.target === modal) modal.classList.add('hidden');
     });
 </script>
+
 <script src="/js/questions.js"></script>
 </body>
 </html>

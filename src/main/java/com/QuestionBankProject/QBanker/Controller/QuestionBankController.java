@@ -41,44 +41,65 @@ public class QuestionBankController {
         private final QuestionServices questionServices;
         private final TopicRepository topicRepository;
         private final QuestionRepository questionRepository;
+        private final RootController rootController;
 
         private static final String UPLOAD_DIR = "src/main/resources/static/images";
         private final QuestionBankRepository questionBankRepository;
 
         public QuestionBankController(TeacherServices teacherServices, QuestionBankService questionBankService,
                                       QuestionServices questionServices, QuestionBankRepository questionBankRepository,
-                                      TopicRepository topicRepository, QuestionRepository questionRepository){
+                                      TopicRepository topicRepository, QuestionRepository questionRepository, RootController rootController){
                 this.questionBankService = questionBankService;
                 this.teacherServices = teacherServices;
                 this.questionServices = questionServices;
                 this.questionBankRepository = questionBankRepository;
                 this.topicRepository = topicRepository;
             this.questionRepository = questionRepository;
+            this.rootController = rootController;
         }
 
         //add question bank page : handler
 
         @RequestMapping("/add")
-        public String addQuestionBank(Model model){
+        public String addQuestionBank(Model model,Authentication authentication){
 
                 QuestionBankForm form = new QuestionBankForm();
 //                form.setName("xyz");
 //                form.setTeacherName("pqr");
                 model.addAttribute("questionBankForm", form);
                 List<QuestionBank> listQuestionBank=questionBankRepository.findAll();
-                List<Question> listQuestion=questionRepository.findAll();
-                model.addAttribute("NoOfQuestions",listQuestion.size());
-                model.addAttribute("NoOfQuestionBanks",listQuestionBank.size());
-                Question question1=listQuestion.get(0);
-                String id1=question1.getQuestionBank().getId();
-                Question question2=listQuestion.get(1
-                );
-                String id2=question1.getQuestionBank().getId();
+                Teacher teacher=rootController.addLoggedInUserInformation(model,authentication);
 
-                model.addAttribute("question1",question1);
-                model.addAttribute("id1",id1);
-                model.addAttribute("question2",question2);
-                model.addAttribute("id2",id2);
+
+                System.out.println();
+                System.out.println("Teacher Details"+teacher);
+                //list1 -> question bank ki list w.r.t. teacher
+                List<QuestionBank> list1=questionBankRepository.getQuestionBanksByTeacher(teacher);
+                System.out.println(list1);
+                System.out.println();
+
+                //Question list w.r.t. Teacher
+                long a = 0;
+                for (int i=0;i<list1.size();i++){
+                        String questionBId=list1.get(i).getId();
+                        List<Question> list=questionRepository.findAll();
+                        a += list.size();
+                }
+
+
+                List<Question> listQuestion=questionRepository.findAll();
+                model.addAttribute("NoOfQuestions",a);
+                model.addAttribute("NoOfQuestionBanks",list1.size());
+//                Question question1=listQuestion.get(0);
+//                String id1=question1.getQuestionBank().getId();
+//                Question question2=listQuestion.get(1
+//                );
+//                String id2=question1.getQuestionBank().getId();
+//
+//                model.addAttribute("question1",question1);
+//                model.addAttribute("id1",id1);
+//                model.addAttribute("question2",question2);
+//                model.addAttribute("id2",id2);
                 System.out.println("check");
 
                 return "teacher/mysubject";

@@ -25,4 +25,6 @@ public interface QuestionBankRepository extends JpaRepository<QuestionBank, Stri
 
     QuestionBank getQuestionBankById(String questionBankId);;
 
+    List<QuestionBank> getQuestionBanksByTeacher(Teacher teacher);
+
 }
